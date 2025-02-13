@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Will You Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #ffe6e6;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+    h1 {
+      color: #e60073;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    .signature {
+      font-size: 20px;
+      color: #ff3385;
+      font-weight: bold;
+      margin-bottom: 20px;
+      animation: heartbeat 1.5s infinite alternate;
+    }
+    @keyframes heartbeat {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+    .message {
+      font-size: 24px;
+      font-weight: bold;
+      color: #e60073;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      margin-top: 20px;
+      position: relative;
+      width: 430px; /* تقريب لحجم شاشة iPhone 15 */
+      height: 850px; 
+    }
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 20px;
+      transition: all 0.3s;
+      position: absolute;
+    }
+    .btn-primary {
+      background-color: #ff4d4d;
+      color: white;
+      font-weight: bold;
+    }
+    .btn-secondary {
+      background-color: #808080;
+      color: white;
+    }
+    footer {
+      font-size: 12px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 852px) {
+      h1 { font-size: 32px; }
+      .signature { font-size: 18px; }
+      .message { font-size: 20px; }
+      button { font-size: 14px; padding: 8px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Will you be my Valentine? 💖</h1>
+  <div class="signature">Y & S 💞</div>
+
+  <div id="message" class="message" style="display:none;"></div>
+
+  <div class="buttons">
+    <button id="yes-btn" class="btn-primary" onclick="sayYes()" style="top: 100px; left: 100px;">Yes 💘</button>
+    <button id="no-btn" class="btn-secondary" onmouseover="moveButton()" onclick="handleNo()" style="top: 100px; left: 250px;">No 💔</button>
+  </div>
+
+  <footer>وش رايش ؟</footer>
+
+  <script>
+    let noClickCount = 0;
+
+    // الرسائل بالتسلسل
+    const messages = [
+      "?",
+      "That's not your choice",
+      "I know how to deal with you 😡"
+    ];
+
+    function sayYes() {
+      alert("Yay! ❤️ You made my day, Y & S forever!");
+    }
+
+    function handleNo() {
+      const messageDiv = document.getElementById('message');
+      const noButton = document.getElementById('no-btn');
+
+      if (noClickCount < messages.length) {
+        messageDiv.innerText = messages[noClickCount];
+        messageDiv.style.display = 'block';
+      } 
+
+      if (noClickCount === 2) {
+        // في النقرة الثالثة يعود الزر إلى مكانه ويتحول إلى Yes
+        noButton.style.top = '100px';
+        noButton.style.left = '250px';
+        noButton.innerText = "Yes 💘";
+        noButton.style.backgroundColor = "#ff4d4d";
+        noButton.style.color = "white";
+        noButton.onclick = sayYes;
+      }
+
+      noClickCount++;
+
+      // اجعل الزر يتحرك بعد كل ضغطة إذا لم تكن الأخيرة
+      if (noClickCount < 3) {
+        moveButton();
+      }
+    }
+
+    function moveButton() {
+      const button = document.getElementById('no-btn');
+      const container = document.querySelector('.buttons');
+      const containerRect = container.getBoundingClientRect();
+
+      const maxX = containerRect.width - button.offsetWidth;
+      const maxY = containerRect.height - button.offsetHeight;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      button.style.left = `${randomX}px`;
+      button.style.top = `${randomY}px`;
+    }
+  </script>
+
+</body>
+</html>

@@ -43,7 +43,7 @@
     .buttons {
       margin-top: 20px;
       position: relative;
-      width: 430px; /* تقريب لحجم شاشة iPhone 15 */
+      width: 430px;
       height: 850px; 
     }
     button {
@@ -81,7 +81,7 @@
 <body>
 
   <h1>Will you be my Valentine? 💖</h1>
-  <div class="signature">Y & S 💞</div>
+  <div class="signature">💞</div>
 
   <div id="message" class="message" style="display:none;"></div>
 
@@ -90,7 +90,7 @@
     <button id="no-btn" class="btn-secondary" onmouseover="moveButton()" onclick="handleNo()" style="top: 100px; left: 250px;">No 💔</button>
   </div>
 
-  <footer>وش رايش ؟</footer>
+  <footer>وش رايك ؟</footer>
 
   <script>
     let noClickCount = 0;
@@ -102,8 +102,24 @@
       "I know how to deal with you 😡"
     ];
 
+    // طلب تأكيد لاستخدام Y & S أو إدخال حروف جديدة
+    let firstLetter = "Y";
+    let secondLetter = "S";
+    
+    const useDefault = confirm("هل تريد استخدام الحروف الافتراضية Y و S؟");
+    if (!useDefault) {
+      // إذا اختار إدخال حروف جديدة
+      firstLetter = prompt("أدخل الحرف الأول:") || "Y";
+      secondLetter = prompt("أدخل الحرف الثاني:") || "S";
+    }
+
+    // تحديث التوقيع بالنص المدخل
+    const signatureDiv = document.querySelector('.signature');
+    signatureDiv.innerText = `${firstLetter} & ${secondLetter} 💞`;
+
+    // تحديث رسالة النجاح أيضًا
     function sayYes() {
-      alert("Yay! ❤️ You made my day, Y & S forever!");
+      alert(`Yay! ❤️ You made my day, ${firstLetter} & ${secondLetter} forever!`);
     }
 
     function handleNo() {
@@ -116,7 +132,6 @@
       } 
 
       if (noClickCount === 2) {
-        // في النقرة الثالثة يعود الزر إلى مكانه ويتحول إلى Yes
         noButton.style.top = '100px';
         noButton.style.left = '250px';
         noButton.innerText = "Yes 💘";
@@ -127,7 +142,6 @@
 
       noClickCount++;
 
-      // اجعل الزر يتحرك بعد كل ضغطة إذا لم تكن الأخيرة
       if (noClickCount < 3) {
         moveButton();
       }

@@ -90,7 +90,7 @@
     <button id="no-btn" class="btn-secondary" onmouseover="moveButton()" onclick="handleNo()" style="top: 100px; left: 250px;">No 💔</button>
   </div>
 
-  <footer>وش رايك ؟</footer>
+
 
   <script>
     let noClickCount = 0;
@@ -106,11 +106,11 @@
     let firstLetter = "Y";
     let secondLetter = "S";
     
-    const useDefault = confirm("هل تريد استخدام الحروف الافتراضية Y و S؟");
+    const useDefault = confirm("ودك تغير الحروف براحتك الموقع موقعك اذا حابه تغيرينها اختاري الغاء  Y و S؟");
     if (!useDefault) {
       // إذا اختار إدخال حروف جديدة
-      firstLetter = prompt("أدخل الحرف الأول:") || "Y";
-      secondLetter = prompt("أدخل الحرف الثاني:") || "S";
+      firstLetter = prompt("حطي الحرف الأول:") || "Y";
+      secondLetter = prompt("حطي الحرف الثاني:") || "S";
     }
 
     // تحديث التوقيع بالنص المدخل
